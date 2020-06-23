@@ -1,0 +1,10 @@
+{
+	"face": "https://avatars0.githubusercontent.com/u/16111810?s=200&v=4",
+	"notes": "Embed Yewno Widget to search results.",
+	"who": "Yewno",
+	"what": "@yewno/primo-addon",
+	"linkGit": "https://github.com/yewno/primo-addon",
+	"npmid": "@yewno/primo-addon",
+	"version": "0.0.2",
+	"hook": "prmBackToLibrarySearchButtonAfter"
+}

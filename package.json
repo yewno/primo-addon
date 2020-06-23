@@ -1,0 +1,14 @@
+{
+  "name": "@yewno/primo-addon",
+  "private": false,
+  "version": "0.0.2",
+  "description": "Yewno Widget Primo Studio Addon",
+  "main": "index.js",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yewno",
+  "homepage": "https://github.com/yewno/primo-addon",
+  "license": "ISC"
+}
