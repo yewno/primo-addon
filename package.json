@@ -1,14 +1,13 @@
 {
   "name": "@yewno/primo-addon",
   "private": false,
-  "version": "0.0.2",
-  "description": "Yewno Widget Primo Studio Addon",
+  "version": "0.0.6",
+  "description": "This widget presents a mini Yewno Discover knowledge map on a webpage. Given a query via Primo, it fetches and renders the closest matching concept and its top related concepts from the Yewno concept graph.",
   "main": "index.js",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "homepage": "https://github.com/yewno/primo-addon",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Yewno",
-  "homepage": "https://github.com/yewno/primo-addon",
   "license": "ISC"
 }
