@@ -2,18 +2,13 @@ const right = `<div class="yewno-widget-right"></div>`
 
 const left = `<div class="yewno-widget-left"></div>`
 
-
-app.component("prmBackToLibrarySearchButtonAfter", {
-  bindings: { parentCtrl: '<' },
-  template: '<yewno-primo-addon-component parent-ctrl="$ctrl.parentCtrl"></yewno-primo-addon-component>'
-});
-app.component("yewnoPrimoAddonComponent", {
+app.component("yewnoPrimoAddon", {
   bindings: { parentCtrl: '<' },
   controller: 'yewnoPrimoAddonController',
   template: `<div class="yewno-widget-container">${left}<div class="yewno-widget" id="yewno-widget"></div><div ng-if="hasQuery" class="yewno-widget-description"><span class="yewno-widget-text">Visualize your research with a Knowledge Map and make unexpected connections. Click here and use Yewno Discover to carry out your research more efficiently and find links to relevant high quality documents. Yewno Discover can help you with topic exploration, hypothesis creation, and redirect research that has reached a dead end.</span></div>${right}</div>`
 });
 
-app.controller('yewnoPrimoAddonController', ['angularLoad', 'primoStudioYewnoPrimoAddon', '$scope', function (angularLoad, studioConfig, $scope) {
+app.controller('yewnoPrimoAddonController', ['angularLoad', 'yewnoPrimoAddonStudioConfig', '$scope', function (angularLoad, studioConfig, $scope) {
   var vm = this;
   vm.config = studioConfig;
   var apikey = studioConfig[0].apikey;
