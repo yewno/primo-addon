@@ -1,5 +1,5 @@
 {
-  "name": "@yewno/primo-addon",
+  "name": "yewno-primo-addon",
   "private": false,
   "version": "0.0.6",
   "description": "This widget presents a mini Yewno Discover knowledge map on a webpage. Given a query via Primo, it fetches and renders the closest matching concept and its top related concepts from the Yewno concept graph.",
