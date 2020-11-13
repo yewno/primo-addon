@@ -18,6 +18,8 @@ app.controller('yewnoPrimoAddonController', ['angularLoad', 'primoStudioYewnoPri
   vm.config = studioConfig;
   var apikey = studioConfig[0].apikey;
   var ezproxyUrl = studioConfig[0].ezproxy;
+  var useSSOLogin = studioConfig[0].ssologin;
+  var entityId = studioConfig[0].entityid;
 
   if (!apikey) {
     console.error('Yewno Primo Addon: missing required apikey parameter.');
@@ -31,12 +33,22 @@ app.controller('yewnoPrimoAddonController', ['angularLoad', 'primoStudioYewnoPri
   } catch (ex) {
     console.error('Yewno Primo Addon: config is not a valid json object');
   }
-  if (ezproxyUrl) {
+
+  if (useSSOLogin) {
     config['urlPrefix'] = function (path) {
-      var discoURL = `${this.hrefBase}${path}`;
-      var url = `https://auth.yewno.com/auth/saml?RelayState={"proxy": "${encodeURIComponent(ezproxyUrl)}", "redirect": "${encodeURIComponent(discoURL)}"}`
+      var discoUrl = `${this.hrefBase}${path}`;
+      var relayState = {redirect: encodeURIComponent(discoUrl)};
+      if (ezproxyUrl) {
+        relayState['proxy'] = encodeURIComponent(ezproxyUrl);
+      }
+      var url = `https://auth.yewno.com/auth/saml?RelayState=${JSON.stringify(relayState)}`
+      if (entityId) {
+        url += "?entityId=" + entityId;
+      }
       return url;
     }
+  } else {
+    config['urlPrefix'] = ezproxyUrl;
   }
 
   function getQuery() {
@@ -67,8 +79,6 @@ app.controller('yewnoPrimoAddonController', ['angularLoad', 'primoStudioYewnoPri
     }})
     .then(() => angularLoad.loadScript('https://static.yewno.com/assets/widget/yewno.min.js'))
     .then(function () {
-      // TODO: validate product key before loading widget
-      // or possibly render the widget, but with a visible warning
       var defaultOpts = {
         containerElementSelector: '#yewno-widget',
         urlSearchParams: function urlSearchParams() {
