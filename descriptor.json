@@ -6,7 +6,7 @@
   "linkGit": "https://github.com/yewno/primo-addon",
   "npmid": "yewno-primo-addon",
   "version": "0.0.7",
-  "hook": "prmBackToLibrarySearchButtonAfter",
+  "hook": "prm-back-to-library-search-button-after",
   "config": {
     "form": [
       {
