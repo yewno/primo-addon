@@ -82,7 +82,7 @@ app.controller('yewnoPrimoAddonController', ['angularLoad', 'yewnoPrimoAddonStud
         width: Math.min(500, window.innerWidth),
         height: 250,
         languages: ['eng'],
-        
+        accessToken: apikey,
       }
       var opts = Object.assign({}, defaultOpts, config)
       new YewnoDiscoverWidget(opts);
