@@ -1,63 +1,585 @@
-.yewno-widget-container {
-    display: flex;
-    justify-content: center;
-    margin: 30px 30px;
+.yn-header,
+.yn-widget,
+.yn-concept-definitions,
+.yn-footer {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Segoe UI", Arial, sans-serif;
 }
 
-.yewno-widget-description {
+.yn-header {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+}
+
+.yn-header .yn-header-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.yn-header .yn-header-title {
+    font-weight: 500;
+    font-size: 20px;
+    color: #1565C0;
+    line-height: 30px;
+    margin: 0 0 0 10px;
+}
+
+.yn-header-info {
+    margin: 5px 0 0 10px;
+    font-size: 12px;
+    margin-left: 10px;
+    font-weight: 400;
+    color: #666666;
+}
+
+.yn-header .yn-expand-collapse-button {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    height: 20px;
+}
+
+.yn-up-arrow,
+.yn-down-arrow {
+    border: 1px solid #666666;
+    border-width: 0 2px 2px 0;
+    padding: 3px;
+}
+
+.yn-header .yn-expand-collapse-button .yn-up-arrow {
+    margin-bottom: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.yn-header .yn-expand-collapse-button .yn-down-arrow {
+    margin-top: 3px;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.yn-concept-definitions {
+    position: relative;
+    padding: 0 10px 0 0;
+    width: 100%;
+    flex-direction: column;
+    line-height: 18px;
+    overflow-y: scroll;
+    color: black;
+}
+
+.yn-definition-container {
+    padding: 0 5px;
+}
+
+.yn-definition-container:not(:last-child) {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.yn-link-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px 0;
+}
+
+.yn-concept-definitions .yn-link-wrapper .yn-definition-source {
+    font-size: 12px;
+    z-index: 10;
+    color: #AAAAAA;
+    text-decoration: none;
+}
+
+.yn-concept-definitions .yn-definition-label {
+    padding: 0 5px;
+    margin: 5px 0;
+    color: #333333;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.yn-concept-definitions .yn-blur-overlay {
+    -webkit-box-shadow: inset 0px -37px 49px -21px rgb(255 255 255);
+    -moz-box-shadow: inset 0px -37px 49px -21px rgba(255, 255, 255, 1);
+    box-shadow: inset 0px -37px 49px -21px rgb(255 255 255);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 32px;
+    z-index: 1;
+}
+
+.yn-concept-definitions .yn-concept-definitions-container {
+    overflow-y: scroll;
+    height: 100%;
+    width: 100%;
+}
+
+.yn-concept-definitions .yn-definition {
+    margin: 0;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.yn-footer {
+    justify-content: flex-end;
+    margin: 0;
+    height: 17px;
+    
+    text-decoration: none;
+}
+
+.yn-footer:focus,
+.yn-footer:hover {
+    outline: none;
+    text-decoration: none;
+}
+
+.yn-footer-yewno,
+.yn-footer-in,
+.yn-footer-discover {
+    display: flex;
+    margin: 3px 1px;
+    height: 17px;
+    color: #161615;
+}
+
+.yn-footer .yn-footer-yewno {
+    padding-right: 4px;
+    border-right: 1px solid black;
+    font-weight: 700;
+}
+
+.yn-footer .yn-footer-discover {
+    padding-left: 1px;
+    margin-right: 15px;
+}
+
+.yn-footer .yewno-footer-in {
+    margin: 0;
+    padding-right: 4px;
+}
+
+.yn-widget {
+    margin: 0;
+    /* Overridden by JavaScript if a specific size is set in constructor */
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.yn-widget .yn-app-link {
+    position: absolute;
+    right: 10px;
+    bottom: 30px;
+    /* 10px + 20px line height */
+    display: block;
+    width: 36px;
+    height: 36px;
+}
+
+
+/* Needed to have the parent anchor tag handle click event */
+
+.yn-widget .yn-app-link svg {
+    pointer-events: none;
+}
+
+.yn-widget .yn-figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 13px;
+    line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.yn-widget .yn-language-selector {
+    position: absolute;
+    right: 0px;
+    margin: 5px;
+    background-color: transparent;
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    -moz-border-radius: 0.2em;
+    -webkit-border-radius: 0.2em;
+    border-radius: 0.2em;
+    height: 24px;
+    cursor: pointer;
+}
+
+.yn-widget .yn-status-message-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 30px;
 }
 
-.yewno-widget-text {
-  max-width: 500px;
+.yn-widget .status-message-content {
+    width: 80%;
+    text-align: center;
+    line-height: 1.5rem;
 }
 
-.yewno-widget {
-  display: flex;
-  justify-content: center;
+.yn-widget .yn-node:focus,
+.yn-widget .yn-app-link:focus {
+    outline: 1px solid #90CAF9;
 }
 
-.yewno-widget-container {
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
-  width: 100%;
+.yn-widget .figure-background {
+    position: absolute;
+    background-color: #f3efea;
+    width: 100%;
+    height: 100%;
 }
 
-.yewno-widget-left {
-  max-width: 5%;
-  flex: 1 1 50%;
+.yn-widget .figure-background .yn-circle,
+.yn-widget .figure-background .bar,
+.yn-widget .figure-background .smile {
+    fill: white;
 }
 
-.yewno-widget-right {
-  max-width: 20%;
-  flex: 1 1 100%;
+.yn-widget .figure-background .bar path,
+.yn-widget .figure-background .smile path {
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
 }
 
-@media (max-width: 993px) {
-    .yewno-widget-container {
-        flex-wrap: wrap;
-    }
-    .yewno-widget {
-        flex-basis: 100%;
-    }
-    .yewno-widget-description {
-      margin-left: 0px;
-    }
-    .yewno-widget {
-      margin-right: 0px;
-    }
+
+/* Visualization ============================================================ */
+
+.yn-widget .yn-visualization-root {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
-@media (max-width: 1199px) {
-  .yewno-widget-right {
-    display: none;
-  }
-  .yewno-widget-left {
-    display: none;
-  }
+
+/* Concept */
+
+.yn-widget .yn-concept-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.yn-widget .yn-concept-container * {
+    pointer-events: auto;
+}
+
+.yn-widget .yn-node {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.yn-widget .primary.yn-node {
+    width: 30px;
+    height: 30px;
+}
+
+.yn-widget .yn-node.has-data {
+    cursor: pointer;
+}
+
+.yn-widget .yn-node .yn-circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #424242;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 3px solid #f3efea;
+    transition: transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.yn-widget .yn-node .yn-circle.yn-mini-widget {
+    width: 15px;
+    height: 15px;
+    background-color: transparent;
+    background-image: url('https://static.yewno.com/assets/images/nodes/secondary-eng.png');
+    background-size: contain;
+    left: 2px;
+    bottom: 2px;
+    border: none;
+}
+
+.yn-widget .yn-node:not(.has-data) .yn-circle {
+    filter: blur(2px);
+}
+
+.yn-widget .yn-node .yn-thumbnail {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 250ms, transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    object-fit: cover;
+}
+
+.yn-widget .primary.yn-node .yn-circle {
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    border: 4px solid #f3efea;
+}
+
+.yn-widget .primary.yn-node .yn-circle.yn-mini-widget {
+    bottom: 0px;
+    left: 0px;
+    background-color: transparent;
+    background-image: url('https://static.yewno.com/assets/images/nodes/primary-eng.png');
+    background-size: contain;
+    border: none;
+}
+
+.yn-widget .primary.yn-node .yn-thumbnail {
+    width: 30px;
+    height: 30px;
+}
+
+.yn-widget .yn-node.has-data:hover .yn-circle,
+.yn-widget .yn-node.has-data:active .yn-circle {
+    border: none;
+    background-image: none;
+    background-color: transparent;
+}
+
+.yn-widget .yn-node.has-data .yn-concept-tooltip-wrapper {
+    z-index: 100;
+    position: absolute;
+}
+
+.yn-widget .yn-node.has-data .yn-concept-tooltip-wrapper .yn-concept-tooltip {
+    visibility: hidden;
+    width: 200px;
+    height: auto;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 15px;
+    left: 25px;
+    font-size: 11px;
+    line-height: 14px;
+    text-align: left;
+    background-color: #80807B;
+    color: white;
+    padding: 7px;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+}
+.yn-widget .yn-node.has-data .yn-concept-tooltip-wrapper .yn-concept-tooltip h3 {
+    margin: 3px 0 0 0;
+}
+.yn-widget .yn-node.has-data .yn-concept-tooltip-wrapper .yn-concept-tooltip p {
+    margin: 0;
+}
+.yn-widget .yn-node.has-data .yn-concept-tooltip-wrapper .yn-concept-tooltip .yn-concept-description {
+    margin: 5px 0 0 0;
+}
+.yn-widget .yn-node.has-data:hover .yn-concept-tooltip-wrapper .yn-concept-tooltip {
+    visibility: visible;
+}
+
+.yn-widget .yn-node.has-data:hover .yn-circle,
+.yn-widget .yn-node.has-data:hover .yn-thumbnail {
+    transform: scale(3);
+}
+
+.yn-widget .yn-node.has-data:hover .yn-thumbnail {
+    opacity: 1;
+}
+
+.yn-widget .yn-node.has-data:active .yn-circle,
+.yn-widget .yn-node.has-data:active .yn-thumbnail {
+    transform: scale(2.8);
+}
+
+
+/* Concept label */
+
+.yn-widget .yn-node .yn-label {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    line-height: 14px;
+    font-size: 13px;
+    transition: transform 100ms;
+    text-overflow: ellipsis;
+    color: black;
+}
+
+.yn-widget .yn-node .yn-label.yn-label-right {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.yn-widget .yn-node .yn-label.yn-label-right.yn-one-label-row {
+    -webkit-line-clamp: 1;
+}
+
+.yn-widget .yn-node .yn-label.yn-label-right.yn-two-label-rows {
+    -webkit-line-clamp: 2;
+}
+
+.yn-widget .yn-node .yn-label.yn-label-left {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-align: right;
+}
+
+.yn-widget .yn-node .yn-label.yn-label-left.up,
+.yn-widget .yn-node .yn-label.yn-label-left.down,
+.yn-widget .yn-node .yn-label.yn-label-right.up,
+.yn-widget .yn-node .yn-label.yn-label-right.down {
+    text-align: left;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.yn-widget .yn-node.primary .yn-label {
+    top: 25px;
+    left: 35px;
+    width: 220px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.yn-widget .yn-node.has-data:hover .yn-label {
+    transform: translateX(20px);
+}
+
+.yn-widget .yn-node.has-data:active .yn-label {
+    transform: translateX(17px);
+}
+
+.yn-widget .primary.yn-node:hover .yn-label {
+    transform: translateX(25px);
+}
+
+.yn-widget .primary.yn-node:active .yn-label {
+    transform: translateX(22px);
+}
+
+
+/* Left Labels */
+
+.yn-widget .yn-node.has-data:hover .yn-label.yn-label-left {
+    transform: translateX(-20px);
+}
+
+.yn-widget .yn-node.has-data:active .yn-label.yn-label-left {
+    transform: translateX(-17px);
+}
+
+.yn-widget .primary.yn-node:hover .yn-label.yn-label-left {
+    transform: translateX(-25px);
+}
+
+.yn-widget .primary.yn-node:active .yn-label.yn-label-left {
+    transform: translateX(-22px);
+}
+
+.yn-widget .yn-node.has-data:hover .yn-label.yn-label-left.up,
+.yn-widget .yn-node.has-data:active .yn-label.yn-label-left.up,
+.yn-widget .primary.yn-node:hover .yn-label.yn-label-left.up,
+.yn-widget .primary.yn-node:active .yn-label.yn-label-left.up
+{
+    transform: translateY(-25px);
+}
+
+.yn-widget .yn-node.has-data:hover .yn-label.yn-label-left.down,
+.yn-widget .yn-node.has-data:active .yn-label.yn-label-left.down,
+.yn-widget .primary.yn-node:hover .yn-label.yn-label-left.down,
+.yn-widget .primary.yn-node:active .yn-label.yn-label-left.down
+{
+    transform: translateY(25px);
+}
+
+/* Right Labels */
+
+.yn-widget .yn-node.has-data:hover .yn-label.yn-label-right.up,
+.yn-widget .yn-node.has-data:active .yn-label.yn-label-right.up,
+.yn-widget .primary.yn-node:hover .yn-label.yn-label-right.up,
+.yn-widget .primary.yn-node:active .yn-label.yn-label-right.up
+{
+    transform: translateY(-25px);
+}
+
+.yn-widget .yn-node.has-data:hover .yn-label.yn-label-right.down,
+.yn-widget .yn-node.has-data:active .yn-label.yn-label-right.down,
+.yn-widget .primary.yn-node:hover .yn-label.yn-label-right.down,
+.yn-widget .primary.yn-node:active .yn-label.yn-label-right.down
+{
+    transform: translateY(25px);
+}
+
+/* Center Labels */
+
+.yn-widget .yn-node.has-data:hover .yn-label.center,
+.yn-widget .yn-node.has-data:active .yn-label.center,
+.yn-widget .primary.yn-node:hover .yn-label.center,
+.yn-widget .primary.yn-node:active .yn-label.center
+{
+    transform: translateX(0);
+}
+
+
+/* Relationship */
+
+.yn-widget .yn-relationship {
+    stroke: #000;
+    stroke-opacity: 0.4;
+}
+
+.yn-widget .yn-relationship-hit-target.yn-interactive:focus,
+.yn-widget .yn-relationship-hit-target.yn-interactive:hover {
+    opacity: 0.1;
+}
+
+.yn-widget .yn-relationship-hit-target :active {
+    opacity: 0.2;
+    stroke-width: 8;
+}
+
+.yn-widget .yn-relationship-hit-target.yn-interactive {
+    cursor: pointer;
+}
+
+.yn-widget .yn-relationship-hit-target {
+    stroke: #000;
+    opacity: 0;
+    stroke-width: 10;
+    will-change: opacity;
+    transition: opacity 150ms;
+    /* JavaScript sets styling for focus behavior */
+    outline: none;
 }
