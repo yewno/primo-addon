@@ -25,7 +25,10 @@ angular.module('yewnoPrimoFacetAddon', []).value('searchTargets')
         var entityId = studioConfig[0].entityid;
         var definitionCount = studioConfig[0].definitionCount;
         var height = studioConfig[0].height || 400;
-    
+        var linkDiscover = studioConfig[0].linkDiscover || false;
+        var showConceptImage = studioConfig[0].showConceptImage || true;
+        var onNodeSelection = studioConfig[0].onNodeSelection;
+
         if (!apikey) {
           console.error('Yewno Primo Addon: missing required apikey parameter.');
           return;
@@ -85,6 +88,9 @@ angular.module('yewnoPrimoFacetAddon', []).value('searchTargets')
           .then(() => angularLoad.loadScript('https://static.yewno.com/assets/widget/yewno.min.js'))
           .then(function () {
             const yewnoContainer = document.querySelector('#yewno-widget');
+            if (!yewnoContainer) {
+              return null;
+            }
             const width = yewnoContainer.offsetWidth - 10;
             var defaultOpts = {
               containerElementSelector: '#yewno-widget',
@@ -96,11 +102,16 @@ angular.module('yewnoPrimoFacetAddon', []).value('searchTargets')
               languages: ['eng'],
               accessToken: apikey,
               definitionCount,
+              linkDiscover,
+              showConceptImage,
+            }
+            if (onNodeSelection) {
+              defaultOpts.onNodeSelection = onNodeSelection
             }
             var opts = Object.assign({}, defaultOpts, config)
             setTimeout(() => {
               new YewnoRelate(opts);
-            }, 150);
+            }, 1000);
           });
           $scope.name = this.parentCtrl.facetGroup.name;
         };
