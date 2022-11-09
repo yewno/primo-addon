@@ -16,65 +16,65 @@ angular.module('yewnoPrimoFacetAddon', []).value('searchTargets')
                 </div>\
               </div>',
     controller: ['angularLoad', '$scope', '$location','yewnoPrimoAddonStudioConfig', function (angularLoad, $scope, $location, studioConfig) {
-      if (this.parentCtrl.facetGroup.name === 'Yewno Discover') {
-        var vm = this;
-        vm.config = studioConfig;
-        var apikey = studioConfig[0].apikey;
-        var ezproxyUrl = studioConfig[0].ezproxy;
-        var useSSOLogin = studioConfig[0].ssologin;
-        var entityId = studioConfig[0].entityid;
-        var definitionCount = studioConfig[0].definitionCount;
-        var height = studioConfig[0].height || 400;
-        var linkDiscover = studioConfig[0].linkDiscover || false;
-        var showConceptImage = studioConfig[0].showConceptImage || true;
-        var onNodeSelection = studioConfig[0].onNodeSelection;
+      this.$onInit = function () {{
+        if (this.parentCtrl.facetGroup.name === 'Yewno Discover') {
+          var vm = this;
+          vm.config = studioConfig;
+          var apikey = studioConfig[0].apikey;
+          var ezproxyUrl = studioConfig[0].ezproxy;
+          var useSSOLogin = studioConfig[0].ssologin;
+          var entityId = studioConfig[0].entityid;
+          var definitionCount = studioConfig[0].definitionCount;
+          var height = studioConfig[0].height || 400;
+          var linkDiscover = studioConfig[0].linkDiscover || false;
+          var showConceptImage = studioConfig[0].showConceptImage || true;
+          var onNodeSelection = studioConfig[0].onNodeSelection;
 
-        if (!apikey) {
-          console.error('Yewno Primo Addon: missing required apikey parameter.');
-          return;
-        } 
-        let config = {};
-        try {
-          if (studioConfig[0].config) {
-            config = JSON.parse(studioConfig[0].config);
-          }
-        } catch (ex) {
-          console.error('Yewno Primo Addon: config is not a valid json object');
-        }
-    
-        if (useSSOLogin) {
-          config['urlPrefix'] = function (path) {
-            var discoUrl = `${this.hrefBase}${path}`;
-            var relayState = {redirect: encodeURIComponent(discoUrl)};
-            if (ezproxyUrl) {
-              relayState['proxy'] = encodeURIComponent(ezproxyUrl);
+          if (!apikey) {
+            console.error('Yewno Primo Addon: missing required apikey parameter.');
+            return;
+          } 
+          let config = {};
+          try {
+            if (studioConfig[0].config) {
+              config = JSON.parse(studioConfig[0].config);
             }
-            var url = `https://auth.yewno.com/auth/saml?RelayState=${JSON.stringify(relayState)}`
-            if (entityId) {
-              url += "&entityId=" + entityId;
+          } catch (ex) {
+            console.error('Yewno Primo Addon: config is not a valid json object');
+          }
+      
+          if (useSSOLogin) {
+            config['urlPrefix'] = function (path) {
+              var discoUrl = `${this.hrefBase}${path}`;
+              var relayState = {redirect: encodeURIComponent(discoUrl)};
+              if (ezproxyUrl) {
+                relayState['proxy'] = encodeURIComponent(ezproxyUrl);
+              }
+              var url = `https://auth.yewno.com/auth/saml?RelayState=${JSON.stringify(relayState)}`
+              if (entityId) {
+                url += "&entityId=" + entityId;
+              }
+              return url;
             }
-            return url;
+          } else {
+            config['urlPrefix'] = ezproxyUrl;
           }
-        } else {
-          config['urlPrefix'] = ezproxyUrl;
-        }
-    
-        function getQuery() {
-          var q = $location.search().query;
-          if (!q) {
-            return false;
+      
+          function getQuery() {
+            var q = $location.search().query;
+            if (!q) {
+              return false;
+            }
+            if (Array.isArray(q)) {
+              q = q[0];
+            }
+            var qargs = q.split(',');
+            if (qargs.length < 3) {
+              return false;
+            }
+            return qargs[2];
           }
-          if (Array.isArray(q)) {
-            q = q[0];
-          }
-          var qargs = q.split(',');
-          if (qargs.length < 3) {
-            return false;
-          }
-          return qargs[2];
-        }
-    
-        this.$onInit = function () {
+
           var query = getQuery();
           $scope.hasQuery = !!query;
     
@@ -114,9 +114,10 @@ angular.module('yewnoPrimoFacetAddon', []).value('searchTargets')
             }, 1000);
           });
           $scope.name = this.parentCtrl.facetGroup.name;
-        };
-      }
-    }],
+          };
+        }
+      }}
+    ],
   })
   .factory('yewnoPrimoFacetAddon', () => ({
     getController() {
